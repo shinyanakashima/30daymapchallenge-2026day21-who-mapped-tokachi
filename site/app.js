@@ -148,9 +148,9 @@
 
     const poly = (src) => ["==", ["geometry-type"], "Polygon"];
     map.addLayer({ id: "farmland-old", type: "fill", source: "farmland", filter: isOld(0), paint: { "fill-color": COLORS.farm, "fill-opacity": 0.85 } });
-    map.addLayer({ id: "farmland-new", type: "fill", source: "farmland", filter: isNew(0), paint: { "fill-color": COLORS.new, "fill-opacity": 0.35 } });
-    map.addLayer({ id: "woods-old", type: "fill", source: "woods", filter: ["all", poly(), isOld(0)], paint: { "fill-color": COLORS.wood, "fill-opacity": 0.75 } });
-    map.addLayer({ id: "woods-new", type: "fill", source: "woods", filter: ["all", poly(), isNew(0)], paint: { "fill-color": COLORS.new, "fill-opacity": 0.35 } });
+    map.addLayer({ id: "farmland-new", type: "fill", source: "farmland", filter: isNew(0), paint: { "fill-color": COLORS.new, "fill-opacity": 0.3 } });
+    map.addLayer({ id: "woods-old", type: "fill", source: "woods", filter: ["all", poly(), isOld(0)], paint: { "fill-color": COLORS.wood, "fill-opacity": 0.5 } });
+    map.addLayer({ id: "woods-new", type: "fill", source: "woods", filter: ["all", poly(), isNew(0)], paint: { "fill-color": COLORS.new, "fill-opacity": 0.22 } });
     const line = ["==", ["geometry-type"], "LineString"];
     map.addLayer({ id: "woods-line-old", type: "line", source: "woods", filter: ["all", line, isOld(0)], paint: { "line-color": COLORS.wood, "line-width": 2 } });
     map.addLayer({ id: "woods-line-new", type: "line", source: "woods", filter: ["all", line, isNew(0)], paint: { "line-color": COLORS.new, "line-width": 2 } });
@@ -167,7 +167,7 @@
     });
     map.addLayer({
       id: "buildings-old", type: "circle", source: "buildings", filter: [">", ["get", "n0"], 0],
-      paint: { "circle-color": COLORS.old, "circle-opacity": 0.35, "circle-radius": bRadius("n0"), "circle-stroke-color": COLORS.old, "circle-stroke-width": 0.6, "circle-stroke-opacity": 0.6 },
+      paint: { "circle-color": COLORS.old, "circle-opacity": 0.45, "circle-radius": bRadius("n0"), "circle-stroke-color": COLORS.outline, "circle-stroke-width": 0.8, "circle-stroke-opacity": 0.7 },
     });
     map.addLayer({
       id: "roads-new", type: "line", source: "roads", filter: isNew(0),

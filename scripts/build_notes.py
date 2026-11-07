@@ -6,7 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 S = json.loads((ROOT / "site/data/stats.json").read_text())
 SRC = json.loads((ROOT / "scripts/roads_2012_2013_by_source.json").read_text())
+WOODS = json.loads((ROOT / "scripts/woods_2010_by_source.json").read_text())
 ts = S["timestamps"]
+wd = dict(zip(ts, S["woods"]))
 km = dict(zip(ts, S["roadKm"]))
 bl = dict(zip(ts, S["buildings"]))
 us = dict(zip(ts, S["users"]))
@@ -38,6 +40,15 @@ frames = {
     "2010-01-01": {
         "en": f"The first {n(km['2010-01-01'])} km of roads. {n(us['2010-01-01'])} people edited here in 2009.",
         "ja": f"最初の {n(km['2010-01-01'])} km。2009年にここを編集した人は {n(us['2010-01-01'])} 人でした。",
+    },
+    "2011-01-01": {
+        "en": (f"In August 2010, {n(WOODS['ksj_forest_import'])} areas of woodland were imported from MLIT "
+               "National Land Numerical Information (Forest, 2006), as the edit comments say. "
+               f"A year later the count of wooded areas had fallen from {n(wd['2011-01-01'])} to {n(wd['2012-01-01'])}."),
+        "ja": (f"2010年8月、国土数値情報（森林・2006年）から {n(WOODS['ksj_forest_import'])} の林の面が取り込まれました"
+               "（変更セットのコメントによる）。"
+               f"林の面の数は、1年後には {n(wd['2011-01-01'])} から {n(wd['2012-01-01'])} に減っています。"),
+        "source": {"en": "Source: changeset comments (OSM API)", "ja": "根拠：変更セットのコメント（OSM API）"},
     },
     "2013-01-01": {
         "en": (f"In 2012 the roads grew from {n(km['2012-01-01'])} km to {n(km['2013-01-01'])} km. "

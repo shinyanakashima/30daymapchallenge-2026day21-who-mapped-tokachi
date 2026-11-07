@@ -1,37 +1,37 @@
 {
  "2012": {
-  "waysAdded": 10155,
-  "changesets": 66,
+  "waysAdded": 7613,
+  "changesets": 59,
   "byKind": {
    "yahoo_alps_import": {
-    "ways": 3786,
-    "changesets": 10
+    "ways": 1290,
+    "changesets": 7
    },
    "other": {
-    "ways": 94,
-    "changesets": 16
+    "ways": 85,
+    "changesets": 14
    },
    "bing_imagery": {
-    "ways": 6275,
-    "changesets": 40
+    "ways": 6238,
+    "changesets": 38
    }
   }
  },
  "2013": {
-  "waysAdded": 33820,
-  "changesets": 74,
+  "waysAdded": 32278,
+  "changesets": 61,
   "byKind": {
    "yahoo_alps_import": {
-    "ways": 33680,
-    "changesets": 33
+    "ways": 32151,
+    "changesets": 26
    },
    "bing_imagery": {
     "ways": 49,
     "changesets": 8
    },
    "other": {
-    "ways": 91,
-    "changesets": 33
+    "ways": 78,
+    "changesets": 27
    }
   }
  }

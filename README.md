@@ -35,18 +35,20 @@ OpenStreetMap は世界中のボランティアが描く地図で、すべての
 | 2026-01-01 | 22,335 | 268,108 | 78 |
 | 2026-07-27 | 22,354 | 269,599 | 52 |
 
-The first row counts editors from 8 Oct 2007 (start of the ohsome history) to 1 Jan 2008; the last row covers 1 Jan – 2026-07-27 only (about seven months).
+The first row counts editors from 8 Oct 2007 (start of the ohsome history) to 1 Jan 2008; the last row covers 1 Jan – 27 Jul 2026 only (about seven months).
 
 ### Why the roads jumped in 2012–2013
 
 | Year | Road ways added | Yahoo! JAPAN / ALPS import | Traced from Bing imagery | Other |
 |---|---:|---:|---:|---:|
-| 2012 | 10,155 | 3,786 | 6,275 | 94 |
-| 2013 | 33,820 | 33,680 | 49 | 91 |
+| 2012 | 7,613 | 1,290 | 6,238 | 85 |
+| 2013 | 32,278 | 32,151 | 49 | 78 |
 
-Ways are grouped by the comment of the changeset that first added them (OSM API). Changesets whose comment mentions Yahoo, ALPS or インポート/import are counted as the import; those mentioning Bing as tracing from Bing aerial imagery. In 2013 the import was done municipality by municipality (for example 「Yahoo/ALPSインポート（北海道芽室町）」, 「北海道十勝総合振興局帯広市をYahooデータインポート」). According to the OSM Wiki, Yahoo! JAPAN released this map data (originally held by ALPS, based on GSI 1:25,000 maps) to OpenStreetMap Foundation Japan on 6 March 2011.
+Only ways whose centre lies inside the Tokachi outline are counted. Ways are grouped by the comment of the changeset that first added them (OSM API). Changesets whose comment mentions Yahoo, ALPS or インポート/import are counted as the import; those mentioning Bing as tracing from Bing aerial imagery. In 2013 the import was done municipality by municipality (for example 「Yahoo/ALPSインポート（北海道芽室町）」, 「北海道十勝総合振興局帯広市をYahooデータインポート」). According to the OSM Wiki, Yahoo! JAPAN released this map data (originally held by ALPS, based on GSI 1:25,000 maps) to OpenStreetMap Foundation Japan on 6 March 2011.
 
-2012〜2013年の道路の急増は、主に Yahoo! JAPAN が OSMF Japan に提供した ALPS の道路データの取り込み（市町村ごとのインポート）によるものです。2012年は Bing 航空写真からのトレースも多く含まれます。
+Similarly, of the 6,694 woodland areas added in 2010, 6,612 came from changesets commented "National-Land Numerical Information (Forest) 2006, MLIT Japan" (August 2010).
+
+2012年の道路の増加は主に Bing 航空写真からのトレース（変更セットのコメントによる）、2013年の急増はほぼすべてが Yahoo! JAPAN が OSMF Japan に提供した ALPS の道路データの取り込み（市町村ごとのインポート）によるものです。2010年の林の急増は、国土数値情報（森林・2006年）の取り込みでした。
 
 ## Method / 集計の方法
 
@@ -61,12 +63,12 @@ Ways are grouped by the comment of the changeset that first added them (OSM API)
 - **Map layers**:
   - roads, farmland, woods: `/contributions/centroid` (with metadata) gives, for every element, when it entered and left the filter. From this the first and last date at which it existed are worked out. Shapes come from `/contributions/latest/geometry` (the latest shape of each element); for elements deleted since, from their last shape before deletion (`/contributions/geometry`). Requests are split into tiles and joined.
   - buildings: `/elements/count/groupBy/boundary` with a grid of about 2 km cells (0.025° × 0.018°), drawn as circles whose area follows the number of buildings.
-- **Why the roads jumped in 2012–2013**: for every road way that first appeared in 2012 or 2013, the changeset that added it was taken from `/contributions/centroid` (`@contributionChangesetId`), and the changeset's comment read from the OSM API (`/api/0.6/changeset/{id}`). The results are in `scripts/roads_2012_2013_by_source.json` and `scripts/changesets_roads_2012_2013.json` (the 25 largest changesets; user names are not stored), and were compared with the OSM Wiki.
+- **Why the roads jumped in 2012–2013**: for every road way that first appeared in 2012 or 2013, the changeset that added it was taken from `/contributions/centroid` (`@contributionChangesetId`), and the changeset's comment read from the OSM API (`/api/0.6/changeset/{id}`). The results are in `scripts/roads_2012_2013_by_source.json` and `scripts/changesets_roads_2012_2013.json` (the 25 largest changesets; user names are not stored), and were compared with the OSM Wiki. The same was done for the woods added in 2010 (`scripts/woods_2010_by_source.json`).
 
 ## Notes / 注記
 
 - All numbers are from the ohsome API, aggregated from the OSM history data available on the date of retrieval. They describe what was in OSM at each date, not what exists on the ground.
-- Shapes on the map are each feature's latest (or last) shape, shown from the first date it existed.
+- Shapes on the map are each feature's latest (or last) shape, shown from the first date it existed, and clipped to the Tokachi outline.
 - 数値は ohsome API で集計した、取得時点の OSM 履歴データに基づきます。範囲は国土数値情報（行政区域 N03）の十勝総合振興局の管内です。
 
 ## Sources / 出典

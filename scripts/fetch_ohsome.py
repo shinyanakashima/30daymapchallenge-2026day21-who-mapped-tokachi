@@ -5,7 +5,7 @@ Usage:
     python scripts/fetch_ohsome.py            # everything
     python scripts/fetch_ohsome.py stats      # yearly statistics only
     python scripts/fetch_ohsome.py layers     # map layers only
-    python scripts/fetch_ohsome.py building-changesets   # who-added-what check for 2017-2018
+    python scripts/fetch_ohsome.py roads      # one layer (roads, farmland or woods)
 
 Requires: shapely. Responses are cached in scripts/.cache so the script can be
 re-run without querying the API again (delete the folder to refresh).
@@ -19,7 +19,7 @@ import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
-from shapely.geometry import shape, mapping, box, Point
+from shapely.geometry import shape, mapping, box
 from shapely.prepared import prep
 
 API = "https://api.ohsome.org/v1"
@@ -29,6 +29,9 @@ OUT = ROOT / "site/data"
 BPOLYS = (ROOT / "scripts/tokachi_bpolys.geojson").read_text()
 AREA = shape(json.loads(BPOLYS)["features"][0]["geometry"])
 AREA_P = prep(AREA)
+# display outline (finer than the query polygon), used to clip map layers
+OUTLINE = shape(json.loads((ROOT / "site/data/tokachi.geojson").read_text())["features"][0]["geometry"])
+OUTLINE_P = prep(OUTLINE)
 
 START = "2007-10-08"  # first timestamp of the ohsome history database
 
@@ -228,6 +231,15 @@ ROAD_CLASS = {
 }
 
 
+def singles(shapes):
+    """Split multi-part and mixed geometries into single LineStrings / Polygons."""
+    for s in shapes:
+        if hasattr(s, "geoms"):
+            yield from singles(s.geoms)
+        elif s.geom_type in ("LineString", "Polygon") and not s.is_empty:
+            yield s
+
+
 def road_class(tags):
     hw = tags.get("highway", "")
     if hw in ROAD_CLASS:
@@ -251,9 +263,11 @@ def write_lines(layer, ts, latest, tol):
             props["z"] = z
         if layer == "roads":
             props["c"] = road_class(tags.get(oid, {}))
-        for s in shapes:
-            feats.append({"type": "Feature", "properties": props, "geometry": {
-                "type": mapping(s)["type"], "coordinates": rnd(mapping(s)["coordinates"])}})
+        clipped = [s if OUTLINE_P.contains(s) else s.intersection(OUTLINE) for s in shapes]
+        for s in singles(clipped):
+            m = mapping(s)
+            feats.append({"type": "Feature", "properties": props,
+                          "geometry": {"type": m["type"], "coordinates": rnd(m["coordinates"])}})
     fc = {"type": "FeatureCollection", "features": feats}
     (OUT / f"{layer}.geojson").write_text(json.dumps(fc, separators=(",", ":")))
     print(f"{layer}: {len(geoms)} elements, {len(feats)} features", flush=True)
@@ -297,22 +311,6 @@ def write_buildings(ts, latest):
     (OUT / "buildings.json").write_text(json.dumps(
         {"cell": [dx, dy], "rows": rows}, separators=(",", ":")))
     print(f"buildings: {len(rows)} non-empty cells, total now {sum(r[2][-1] for r in rows)}", flush=True)
-
-
-def building_changesets(latest, years):
-    """Creation changesets of buildings in the given years (one request per year)."""
-    created = {}
-    minx, miny, maxx, maxy = AREA.bounds
-    for y in sorted(years):
-        for i, b in enumerate(chunks(0.2)):
-            r = post("contributions/centroid", {"bboxes": bbox_param(b), "time": f"{y}-01-01,{int(y) + 1}-01-01",
-                                                "filter": LAYERS["buildings"], "properties": "metadata"})
-            for f in r["features"]:
-                p = f["properties"]
-                if p.get("@creation"):
-                    created.setdefault(p["@osmId"], (p["@timestamp"], p["@contributionChangesetId"]))
-            print(f"  building changesets {y} chunk {i}", flush=True)
-    return created
 
 
 def changeset_summary(created, years, top=25):
@@ -363,13 +361,12 @@ def main():
         s = stats(ts)
         (OUT / "stats.json").write_text(json.dumps(s, separators=(",", ":")))
     if what in ("all", "layers"):
-        _, created = write_roads(ts, latest)
-        write_changesets("roads", created, {"2012", "2013"})
+        write_roads(ts, latest)
         write_buildings(ts, latest)
         write_lines("farmland", ts, latest, 0.0001)
         write_lines("woods", ts, latest, 0.0001)
-    if what == "building-changesets":
-        write_changesets("buildings", building_changesets(latest, {"2017", "2018"}), {"2017", "2018"})
+    if what in LAYERS and what != "buildings":
+        write_lines(what, ts, latest, 0.00003 if what == "roads" else 0.0001)
 
 
 if __name__ == "__main__":

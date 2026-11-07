@@ -4,7 +4,7 @@
   "2012",
   "2013"
  ],
- "elementsAdded": 43975,
+ "elementsAdded": 39891,
  "changesets": [
   {
    "id": 14643075,
@@ -14,7 +14,7 @@
     "comment": "Yahoo/ALPSインポート（北海道芽室町）",
     "created_by": "JOSM/1.5 (5608 ja)"
    },
-   "elementsAddedInArea": 3753
+   "elementsAddedInArea": 3752
   },
   {
    "id": 15298089,
@@ -44,7 +44,7 @@
     "comment": "北海道十勝総合振興局十勝郡浦幌町のインポート（ALPS）",
     "created_by": "JOSM/1.5 (5608 ja)"
    },
-   "elementsAddedInArea": 2486
+   "elementsAddedInArea": 2467
   },
   {
    "id": 14789156,
@@ -84,7 +84,7 @@
     "comment": "rw01641北海道十勝総合振興局広尾郡大樹町.osmYahooALPSインポート",
     "created_by": "JOSM/1.5 (5697 ja)"
    },
-   "elementsAddedInArea": 2023
+   "elementsAddedInArea": 2022
   },
   {
    "id": 14608945,
@@ -114,7 +114,7 @@
     "comment": "YahooJapanALPS上士幌町インポート",
     "created_by": "JOSM/1.5 (5990 ja)"
    },
-   "elementsAddedInArea": 1315
+   "elementsAddedInArea": 1313
   },
   {
    "id": 13655220,
@@ -164,7 +164,7 @@
     "comment": "北海道十勝総合振興局足寄郡陸別町のインポート（ALPS）",
     "created_by": "JOSM/1.5 (5608 ja)"
    },
-   "elementsAddedInArea": 1048
+   "elementsAddedInArea": 1047
   },
   {
    "id": 16475896,
@@ -184,27 +184,7 @@
     "comment": "北海道十勝総合振興局足寄郡足寄町のインポート2（ALPS）",
     "created_by": "JOSM/1.5 (5608 ja)"
    },
-   "elementsAddedInArea": 626
-  },
-  {
-   "id": 15310031,
-   "created_at": "2013-03-10T03:33:03Z",
-   "changes_count": 25757,
-   "tags": {
-    "comment": "北海道釧路総合振興局釧路市をYahooデータインポート",
-    "created_by": "JOSM/1.5 (5759 ja)"
-   },
-   "elementsAddedInArea": 569
-  },
-  {
-   "id": 11139923,
-   "created_at": "2012-03-29T15:15:05Z",
-   "changes_count": 43484,
-   "tags": {
-    "comment": "北海道白糠町をYahoo/ALPSデータからインポート(2)",
-    "created_by": "JOSM/1.5 (5047 ja)"
-   },
-   "elementsAddedInArea": 552
+   "elementsAddedInArea": 624
   },
   {
    "id": 12857632,
@@ -215,16 +195,6 @@
     "created_by": "JOSM/1.5 (5356 en)"
    },
    "elementsAddedInArea": 535
-  },
-  {
-   "id": 11489751,
-   "created_at": "2012-05-03T15:12:55Z",
-   "changes_count": 30063,
-   "tags": {
-    "comment": "北海道浦河郡浦河町をYahoo/ALPSデータからインポート",
-    "created_by": "JOSM/1.5 (5181 ja)"
-   },
-   "elementsAddedInArea": 517
   },
   {
    "id": 12629639,
@@ -247,14 +217,44 @@
    "elementsAddedInArea": 397
   },
   {
-   "id": 14164487,
-   "created_at": "2012-12-05T15:22:56Z",
-   "changes_count": 19705,
+   "id": 12834216,
+   "created_at": "2012-08-23T15:19:52Z",
+   "changes_count": 1657,
    "tags": {
-    "comment": "北海道南富良野町のインポート",
-    "created_by": "JOSM/1.5 (5576 ja)"
+    "comment": "roads (source=Bing)",
+    "created_by": "JOSM/1.5 (5356 en)"
    },
-   "elementsAddedInArea": 396
+   "elementsAddedInArea": 389
+  },
+  {
+   "id": 14661513,
+   "created_at": "2013-01-15T14:33:26Z",
+   "changes_count": 2866,
+   "tags": {
+    "comment": "Yahoo/ALPSインポート（北海道上川郡清水町）競合解決",
+    "created_by": "JOSM/1.5 (5608 ja)"
+   },
+   "elementsAddedInArea": 352
+  },
+  {
+   "id": 12828726,
+   "created_at": "2012-08-23T06:22:42Z",
+   "changes_count": 1325,
+   "tags": {
+    "comment": "roads (source=Bing)",
+    "created_by": "JOSM/1.5 (5356 en)"
+   },
+   "elementsAddedInArea": 336
+  },
+  {
+   "id": 12951649,
+   "created_at": "2012-09-02T10:20:24Z",
+   "changes_count": 1711,
+   "tags": {
+    "comment": "roads (source=Bing)",
+    "created_by": "JOSM/1.5 (5485 en)"
+   },
+   "elementsAddedInArea": 334
   }
  ]
 }
