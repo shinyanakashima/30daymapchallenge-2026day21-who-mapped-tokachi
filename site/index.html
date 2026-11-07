@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who mapped Tokachi?</title>
+<meta name="description" content="How the OpenStreetMap of Tokachi, Hokkaido, was drawn year by year, from a blank sheet in 2008 to today. #30DayMapChallenge 2026 Day 21: OpenStreetMap.">
+<meta property="og:title" content="Who mapped Tokachi?">
+<meta property="og:description" content="How the OpenStreetMap of Tokachi, Hokkaido, was drawn year by year.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23f3efe6'/%3E%3Cpath d='M3 12 L7 5 L10 9 L13 3' stroke='%23d9480f' stroke-width='1.8' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+  <section id="map-wrap">
+    <div id="map" role="img" aria-label="Map of Tokachi showing OpenStreetMap features by the year they were drawn"></div>
+
+    <header class="title-card">
+      <p class="kicker" data-i18n="kicker">#30DayMapChallenge 2026 · Day 21 · OpenStreetMap</p>
+      <h1 data-i18n="title">Who mapped Tokachi?</h1>
+      <p class="lede" data-i18n="lede">Every line on OpenStreetMap was added by someone, and every edit is kept. Watch the map of Tokachi, Hokkaido, being drawn from a blank sheet.</p>
+    </header>
+
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ja" aria-pressed="false">日本語</button>
+    </div>
+
+    <div class="date-card" aria-live="polite">
+      <p class="date-label" data-i18n="asOf">Map as of</p>
+      <p id="date" class="date">—</p>
+      <p id="story" class="story"></p>
+    </div>
+
+    <fieldset class="layers">
+      <legend data-i18n="layers">Show</legend>
+      <label><input type="checkbox" data-layer="roads" checked><span class="sw sw-road"></span><span data-i18n="roads">Roads</span></label>
+      <label><input type="checkbox" data-layer="buildings" checked><span class="sw sw-bldg"></span><span data-i18n="buildings">Buildings (per 2 km cell)</span></label>
+      <label><input type="checkbox" data-layer="farmland" checked><span class="sw sw-farm"></span><span data-i18n="farmland">Farmland</span></label>
+      <label><input type="checkbox" data-layer="woods" checked><span class="sw sw-wood"></span><span data-i18n="woods">Woods &amp; windbreaks</span></label>
+      <p class="key"><span class="sw sw-new"></span><span data-i18n="keyNew">Drawn in the past 12 months</span></p>
+      <p class="key"><span class="sw sw-old"></span><span data-i18n="keyOld">Drawn earlier</span></p>
+    </fieldset>
+
+    <div id="finale" class="finale" hidden>
+      <p class="finale-head" data-i18n="finaleHead">You can draw this map, too.</p>
+      <p data-i18n="finaleBody">OpenStreetMap is edited by volunteers. A farm road, a new shop, a windbreak that is missing: anyone with an account can add it.</p>
+      <a class="cta" href="https://www.openstreetmap.org/#map=10/42.92/143.20" target="_blank" rel="noopener" data-i18n="finaleLink">Open OpenStreetMap and start editing</a>
+      <button type="button" class="close" id="finale-close" aria-label="Close" data-i18n-aria="close">×</button>
+    </div>
+    <p id="loading" class="loading" data-i18n="loading">Loading map data…</p>
+  </section>
+
+  <section id="panel">
+    <div class="controls">
+      <button type="button" id="play" class="play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg></button>
+      <input type="range" id="slider" min="0" max="19" value="0" step="1" aria-label="Year">
+      <span id="slider-label" class="slider-label"></span>
+    </div>
+    <div class="charts">
+      <figure class="chart" id="chart-roads"><figcaption><span data-i18n="chartRoads">Road length</span> <b class="val"></b></figcaption><svg></svg></figure>
+      <figure class="chart" id="chart-buildings"><figcaption><span data-i18n="chartBuildings">Buildings</span> <b class="val"></b></figcaption><svg></svg></figure>
+      <figure class="chart" id="chart-users"><figcaption><span data-i18n="chartUsers">People who edited (past 12 months)</span> <b class="val"></b></figcaption><svg></svg></figure>
+    </div>
+    <div id="tip" class="tip" hidden></div>
+    <details class="about">
+      <summary data-i18n="aboutHead">About the data</summary>
+      <div class="about-body" data-i18n-html="about"></div>
+    </details>
+    <footer class="credit" data-i18n-html="credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> (ODbL) · Statistics: <a href="https://ohsome.org/" target="_blank" rel="noopener">ohsome</a> by HeiGIT · Outline: MLIT National Land Numerical Information (N03)</footer>
+  </section>
+</main>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

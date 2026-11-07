@@ -1,0 +1,8 @@
+{
+  "name": "who-mapped-tokachi",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8080 --directory site",
+    "check": "node scripts/check.mjs"
+  }
+}

@@ -1,0 +1,38 @@
+{
+ "2012": {
+  "waysAdded": 10155,
+  "changesets": 66,
+  "byKind": {
+   "yahoo_alps_import": {
+    "ways": 3786,
+    "changesets": 10
+   },
+   "other": {
+    "ways": 94,
+    "changesets": 16
+   },
+   "bing_imagery": {
+    "ways": 6275,
+    "changesets": 40
+   }
+  }
+ },
+ "2013": {
+  "waysAdded": 33820,
+  "changesets": 74,
+  "byKind": {
+   "yahoo_alps_import": {
+    "ways": 33680,
+    "changesets": 33
+   },
+   "bing_imagery": {
+    "ways": 49,
+    "changesets": 8
+   },
+   "other": {
+    "ways": 91,
+    "changesets": 33
+   }
+  }
+ }
+}
