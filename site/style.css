@@ -21,8 +21,9 @@ body { -webkit-text-size-adjust: 100%; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
 
-#app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
-#map-wrap { position: relative; flex: 1 1 auto; min-height: 0; }
+#app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; position: relative; }
+#map-wrap { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+#map-area { position: relative; flex: 1 1 auto; min-height: 0; }
 #map { position: absolute; inset: 0; background: var(--sea); }
 
 .title-card {
@@ -78,7 +79,10 @@ h1 { margin: 0 0 6px; font-size: 26px; line-height: 1.15; letter-spacing: -.01em
 
 .loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; font-size: 13px; color: var(--ink-2); background: var(--panel); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--rule); }
 
-#panel { flex: none; background: var(--panel); border-top: 1px solid var(--rule); padding: 10px 16px 8px; position: relative; }
+#dock { flex: none; position: relative; background: var(--panel); border-top: 1px solid var(--rule); padding: 10px 16px 0; }
+#panel { flex: none; background: var(--panel); padding: 0 16px 8px; }
+.story-m { display: none; }
+.lab-s { display: none; }
 .controls { display: flex; align-items: center; gap: 12px; }
 .play { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer; display: grid; place-items: center; flex: none; }
 .play svg { width: 16px; height: 16px; fill: currentColor; }
@@ -109,25 +113,46 @@ h1 { margin: 0 0 6px; font-size: 26px; line-height: 1.15; letter-spacing: -.01em
 
 @media (max-width: 760px) {
   #app { height: auto; min-height: 100dvh; }
-  #map-wrap { flex: none; height: auto; display: flex; flex-direction: column; }
-  #map { position: relative; inset: auto; height: 58vh; height: 58svh; min-height: 340px; }
+  #map-wrap { flex: none; display: block; position: relative; height: 100vh; height: 100svh; min-height: 520px; }
+  #map-area { position: absolute; inset: 0; }
   .title-card { top: 8px; left: 8px; right: 92px; max-width: none; padding: 8px 10px; }
   .kicker { font-size: 10px; margin-bottom: 2px; }
   h1 { font-size: 19px; margin: 0; }
   .lede { display: none; }
   .lang { top: 8px; right: 8px; }
-  .date-card { position: static; max-width: none; border-radius: 0; border-width: 1px 0 0; padding: 10px 12px; background: var(--panel); }
-  .date { font-size: 26px; }
-  .story { font-size: 13px; }
-  .layers { position: static; border-radius: 0; border-width: 1px 0 0; padding: 8px 12px; background: var(--panel);
+  .date-card { display: none; }
+  .maplibregl-ctrl-bottom-right { bottom: calc(var(--dock-h, 150px) + 12px); }
+  .maplibregl-ctrl-group { display: none; }
+  .finale { top: 42%; }
+
+  /* controls and small charts float over the bottom of the map */
+  #dock {
+    position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 3;
+    background: rgba(251, 250, 246, 0.93); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 8px 10px 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+  }
+  .controls { gap: 8px; }
+  .play { width: 34px; height: 34px; }
+  .play svg { width: 14px; height: 14px; }
+  .slider-label { order: -1; min-width: 0; font-size: 15px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .controls { flex-wrap: nowrap; }
+  .charts { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+  .chart figcaption { flex-direction: column; gap: 0; font-size: 10px; line-height: 1.3; }
+  .chart figcaption b { font-size: 12px; }
+  .lab { display: none; }
+  .lab-s { display: inline; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chart svg { height: 30px; margin-top: 2px; }
+  .chart .axis { display: none; }
+  .tip { display: none; }
+
+  /* below the map: the caption for the date, layer switches, notes */
+  #panel { padding: 12px 12px 16px; border-top: 1px solid var(--rule); }
+  .story-m { display: block; margin: 0 0 10px; font-size: 13px; }
+  .story-m:empty { display: none; }
+  .layers { position: static; border: 0; border-top: 1px solid var(--rule); border-radius: 0; padding: 8px 0; background: transparent;
     display: flex; flex-wrap: wrap; gap: 2px 14px; }
   .layers legend { display: none; }
   .layers label { clear: none; }
   .layers .key { margin: 0; width: 100%; }
   .layers .key + .key { margin-top: 0; }
-  .maplibregl-ctrl-group { display: none; }
-  .finale { top: 29svh; }
-  #panel { padding: 10px 12px 16px; }
-  .charts { grid-template-columns: 1fr; gap: 8px; }
-  .chart svg { height: 60px; }
 }

@@ -15,6 +15,7 @@
 <body>
 <main id="app">
   <section id="map-wrap">
+   <div id="map-area">
     <div id="map" role="img" aria-label="Map of Tokachi showing OpenStreetMap features by the year they were drawn"></div>
 
     <header class="title-card">
@@ -34,6 +35,32 @@
       <p id="story" class="story"></p>
     </div>
 
+
+    <div id="finale" class="finale" hidden>
+      <p class="finale-head" data-i18n="finaleHead">You can draw this map, too.</p>
+      <p data-i18n="finaleBody">OpenStreetMap is edited by volunteers. A farm road, a new shop, a windbreak that is missing: anyone with an account can add it.</p>
+      <a class="cta" href="https://www.openstreetmap.org/#map=10/42.92/143.20" target="_blank" rel="noopener" data-i18n="finaleLink">Open OpenStreetMap and start editing</a>
+      <button type="button" class="close" id="finale-close" aria-label="Close" data-i18n-aria="close">×</button>
+    </div>
+    <p id="loading" class="loading" data-i18n="loading">Loading map data…</p>
+   </div>
+   <div id="dock">
+    <div class="controls">
+      <button type="button" id="play" class="play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg></button>
+      <input type="range" id="slider" min="0" max="19" value="0" step="1" aria-label="Year">
+      <span id="slider-label" class="slider-label"></span>
+    </div>
+    <div class="charts">
+      <figure class="chart" id="chart-roads"><figcaption><span class="lab" data-i18n="chartRoads">Road length</span><span class="lab-s" data-i18n="chartRoadsS">Roads</span> <b class="val"></b></figcaption><svg></svg></figure>
+      <figure class="chart" id="chart-buildings"><figcaption><span class="lab" data-i18n="chartBuildings">Buildings</span><span class="lab-s" data-i18n="chartBuildingsS">Buildings</span> <b class="val"></b></figcaption><svg></svg></figure>
+      <figure class="chart" id="chart-users"><figcaption><span class="lab" data-i18n="chartUsers">People who edited (past 12 months)</span><span class="lab-s" data-i18n="chartUsersS">Editors / yr</span> <b class="val"></b></figcaption><svg></svg></figure>
+    </div>
+    <div id="tip" class="tip" hidden></div>
+   </div>
+  </section>
+
+  <section id="panel">
+    <p id="story-m" class="story story-m"></p>
     <fieldset class="layers">
       <legend data-i18n="layers">Show</legend>
       <label><input type="checkbox" data-layer="roads" checked><span class="sw sw-road"></span><span data-i18n="roads">Roads</span></label>
@@ -43,28 +70,6 @@
       <p class="key"><span class="sw sw-new"></span><span data-i18n="keyNew">Drawn in the past 12 months</span></p>
       <p class="key"><span class="sw sw-old"></span><span data-i18n="keyOld">Drawn earlier</span></p>
     </fieldset>
-
-    <div id="finale" class="finale" hidden>
-      <p class="finale-head" data-i18n="finaleHead">You can draw this map, too.</p>
-      <p data-i18n="finaleBody">OpenStreetMap is edited by volunteers. A farm road, a new shop, a windbreak that is missing: anyone with an account can add it.</p>
-      <a class="cta" href="https://www.openstreetmap.org/#map=10/42.92/143.20" target="_blank" rel="noopener" data-i18n="finaleLink">Open OpenStreetMap and start editing</a>
-      <button type="button" class="close" id="finale-close" aria-label="Close" data-i18n-aria="close">×</button>
-    </div>
-    <p id="loading" class="loading" data-i18n="loading">Loading map data…</p>
-  </section>
-
-  <section id="panel">
-    <div class="controls">
-      <button type="button" id="play" class="play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg></button>
-      <input type="range" id="slider" min="0" max="19" value="0" step="1" aria-label="Year">
-      <span id="slider-label" class="slider-label"></span>
-    </div>
-    <div class="charts">
-      <figure class="chart" id="chart-roads"><figcaption><span data-i18n="chartRoads">Road length</span> <b class="val"></b></figcaption><svg></svg></figure>
-      <figure class="chart" id="chart-buildings"><figcaption><span data-i18n="chartBuildings">Buildings</span> <b class="val"></b></figcaption><svg></svg></figure>
-      <figure class="chart" id="chart-users"><figcaption><span data-i18n="chartUsers">People who edited (past 12 months)</span> <b class="val"></b></figcaption><svg></svg></figure>
-    </div>
-    <div id="tip" class="tip" hidden></div>
     <details class="about">
       <summary data-i18n="aboutHead">About the data</summary>
       <div class="about-body" data-i18n-html="about"></div>

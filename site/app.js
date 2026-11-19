@@ -25,6 +25,7 @@
       close: "Close",
       loading: "Loading map data…",
       chartRoads: "Road length", chartBuildings: "Buildings", chartUsers: "People who edited (past 12 months)",
+      chartRoadsS: "Roads", chartBuildingsS: "Buildings", chartUsersS: "Editors / yr",
       play: "Play", pause: "Pause", year: "Year",
       km: (v) => `${fmt(v)} km`,
       count: (v) => fmt(v),
@@ -51,6 +52,7 @@
       close: "閉じる",
       loading: "地図データを読み込んでいます…",
       chartRoads: "道路の長さ", chartBuildings: "建物の数", chartUsers: "編集した人の数（直前1年）",
+      chartRoadsS: "道路", chartBuildingsS: "建物", chartUsersS: "編集した人/年",
       play: "再生", pause: "一時停止", year: "年",
       km: (v) => `${fmt(v)} km`,
       count: (v) => `${fmt(v)} 棟`,
@@ -80,6 +82,15 @@
   const playBtn = $("#play");
 
   // ------------------------------------------------------------------- map
+  const isNarrow = () => window.matchMedia("(max-width: 760px)").matches;
+  // on phones the controls and charts float over the bottom of the map
+  function mapPadding() {
+    if (!isNarrow()) return 20;
+    const dock = document.getElementById("dock");
+    const h = dock ? dock.offsetHeight : 0;
+    document.documentElement.style.setProperty("--dock-h", `${h}px`);
+    return { top: 96, bottom: h + 16, left: 8, right: 8 };
+  }
   const map = new maplibregl.Map({
     container: "map",
     style: {
@@ -88,7 +99,7 @@
       layers: [{ id: "bg", type: "background", paint: { "background-color": COLORS.sea } }],
     },
     bounds: [[142.62, 42.12], [144.08, 43.68]],
-    fitBoundsOptions: { padding: window.innerWidth <= 760 ? { top: 64, bottom: 10, left: 10, right: 10 } : 20 },
+    fitBoundsOptions: { padding: mapPadding() },
     minZoom: 6,
     maxZoom: 15,
     attributionControl: false,
@@ -243,7 +254,7 @@
       const v = values[+i];
       tip.textContent = v == null ? "—" : tipText(+i, v);
       tip.hidden = false;
-      const pr = $("#panel").getBoundingClientRect();
+      const pr = $("#dock").getBoundingClientRect();
       const x = Math.min(e.clientX - pr.left + 10, pr.width - tip.offsetWidth - 4);
       tip.style.left = `${Math.max(4, x)}px`;
       tip.style.top = `${e.clientY - pr.top - 34}px`;
@@ -282,6 +293,7 @@
     $("#slider-label").textContent = ds;
     slider.setAttribute("aria-valuetext", ds);
     $("#story").innerHTML = storyFor(frame);
+    $("#story-m").innerHTML = storyFor(frame);
     setMapFrame(frame);
     drawCharts();
     if (frame === stats.timestamps.length - 1 && !finaleShown) {
@@ -338,7 +350,7 @@
     const vis = inp.checked ? "visible" : "none";
     GROUPS[inp.dataset.layer].forEach((id) => map.getLayer(id) && map.setLayoutProperty(id, "visibility", vis));
   }));
-  window.addEventListener("resize", () => drawCharts());
+  window.addEventListener("resize", () => { drawCharts(); mapPadding(); });
 
   let initial = "en";
   try {
